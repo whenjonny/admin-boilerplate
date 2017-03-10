@@ -27,6 +27,7 @@ class UserTableSeeder extends Seeder
         $users = [
             [
                 'name'              => 'Admin Istrator',
+                'phone'              => '19000000001',
                 'email'             => 'admin@admin.com',
                 'password'          => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -36,6 +37,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'name'              => 'Backend User',
+                'phone'              => '19000000002',
                 'email'             => 'executive@executive.com',
                 'password'          => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
@@ -45,6 +47,7 @@ class UserTableSeeder extends Seeder
             ],
             [
                 'name'              => 'Default User',
+                'phone'              => '19000000003',
                 'email'             => 'user@user.com',
                 'password'          => bcrypt('1234'),
                 'confirmation_code' => md5(uniqid(mt_rand(), true)),
