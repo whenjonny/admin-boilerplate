@@ -77,11 +77,3 @@ Route::get('admin/posts/{posts}/edit', ['as'=> 'admin.posts.edit', 'uses' => 'Ad
 
 
 
-Route::get('admin/posts', ['as'=> 'admin.posts.index', 'uses' => 'Backend\PostController@index']);
-Route::post('admin/posts', ['as'=> 'admin.posts.store', 'uses' => 'Backend\PostController@store']);
-Route::get('admin/posts/create', ['as'=> 'admin.posts.create', 'uses' => 'Backend\PostController@create']);
-Route::put('admin/posts/{posts}', ['as'=> 'admin.posts.update', 'uses' => 'Backend\PostController@update']);
-Route::patch('admin/posts/{posts}', ['as'=> 'admin.posts.update', 'uses' => 'Backend\PostController@update']);
-Route::delete('admin/posts/{posts}', ['as'=> 'admin.posts.destroy', 'uses' => 'Backend\PostController@destroy']);
-Route::get('admin/posts/{posts}', ['as'=> 'admin.posts.show', 'uses' => 'Backend\PostController@show']);
-Route::get('admin/posts/{posts}/edit', ['as'=> 'admin.posts.edit', 'uses' => 'Backend\PostController@edit']);
