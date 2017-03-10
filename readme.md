@@ -1,7 +1,6 @@
 # Pires Admin Framework
-### Laravel 5.4 Boilerplate - with Infyom Generator
 
-### Official Boilerplate Documentation
+### Laravel 5.4 Boilerplate - with Infyom Generator
 
 [Click here for the official documentation](http://laravel-boilerplate.com/5.4/documentation.html)
 
