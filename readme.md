@@ -33,5 +33,5 @@
 [Click here view helper](http://labs.infyom.com/laravelgenerator/docs/5.3/getting-started#field-inputs)
 
 
-## add content
+## change content
 
