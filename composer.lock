@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8527948ca5933f5fe2236a9e47d750f7",
+    "content-hash": "cf9f8e377577b42e394b6c5243233503",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -907,6 +907,39 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "laracademy/interactive-make",
+            "version": "0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laracademy/interactive-make.git",
+                "reference": "8c2ffd526100cd494d7f384ec583eeee9ee42d1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/laracademy/interactive-make/8c2ffd526100cd494d7f384ec583eeee9ee42d1a.zip",
+                "reference": "8c2ffd526100cd494d7f384ec583eeee9ee42d1a",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laracademy\\Commands\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael McMullen",
+                    "email": "packages@laracademy.co"
+                }
+            ],
+            "description": "Interactive make CLI replacement for Laravel",
+            "time": "2017-05-04T17:51:28+00:00"
         },
         {
             "name": "laracasts/flash",
@@ -4909,8 +4942,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "infyomlabs/laravel-generator": 20,
-        "infyomlabs/adminlte-templates": 20
+        "infyomlabs/adminlte-templates": 20,
+        "infyomlabs/laravel-generator": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
