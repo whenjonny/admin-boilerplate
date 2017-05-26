@@ -43,5 +43,6 @@ return [
         'ru'    => ['ru', 'ru-RU', false],
         'sv'    => ['sv', 'sv_SE', false],
         'th'    => ['th', 'th_TH', false],
+        'zh-CN'    => ['zh-CN', 'zh-CN', false],
     ],
 ];
