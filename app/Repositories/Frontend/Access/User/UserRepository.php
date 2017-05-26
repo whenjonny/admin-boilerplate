@@ -87,6 +87,7 @@ class UserRepository extends BaseRepository
     {
         $user = self::MODEL;
         $user = new $user();
+        $user->phone = isset($data['phone'])?$data['phone']:'0'.time();
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->confirmation_code = md5(uniqid(mt_rand(), true));
