@@ -59,6 +59,7 @@ return [
         'sidebar' => [
             'dashboard' => '仪表盘',
             'general' => '基本',
+            'system'    => '系统',
         ],
     ],
 
