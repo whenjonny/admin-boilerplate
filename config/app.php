@@ -207,6 +207,12 @@ return [
         App\Providers\MacroServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+
+        /**
+         * artisan make
+         */
+        Laracademy\Commands\MakeServiceProvider::class,
+
     ],
 
     /*
