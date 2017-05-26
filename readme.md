@@ -20,7 +20,7 @@
 
     yarn
 
-    Change Env
+    Create Database & Change Env
 
     php artisan key:generate
 
@@ -31,8 +31,3 @@
 ## Generate code
 
 [Click here view helper](http://labs.infyom.com/laravelgenerator/docs/5.3/getting-started#field-inputs)
-
-
-## change content
-
-## add dev branch
