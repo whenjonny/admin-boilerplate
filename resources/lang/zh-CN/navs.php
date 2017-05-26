@@ -18,6 +18,7 @@ return [
     ],
 
     'general' => [
+        'home'   => '首页',
         'logout' => '退出',
     ],
 
@@ -29,9 +30,11 @@ return [
         'register' => '注册',
 
         'user' => [
+            'account'         => '我的帐户',
             'administration' => '管理',
             'change_password' => '修改密码',
             'my_information' => '个人信息',
+            'profile'         => '个人资料',
         ],
     ],
 ];
