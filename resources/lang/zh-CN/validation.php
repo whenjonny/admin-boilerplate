@@ -108,7 +108,7 @@ return [
         'new_password_confirmation' => '确认新密码',
         'created_at' => '创建时间',
         'last_updated' => '最近更新时间',
-        'actions' => '动作',
+        'actions' => '操作',
         'active' => '活跃',
         'confirmed' => '确认',
         'send_confirmation_email' => '发送确认邮件',

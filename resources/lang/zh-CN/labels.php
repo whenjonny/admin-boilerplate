@@ -15,7 +15,7 @@ return [
 
     'general' => [
         'all' => '所有',
-        'actions' => '动作',
+        'actions' => '操作',
         'buttons' => [
             'save' => '保存',
             'update' => '更新',

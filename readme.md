@@ -31,3 +31,5 @@
 ## Generate code
 
 [Click here view helper](http://labs.infyom.com/laravelgenerator/docs/5.3/getting-started#field-inputs)
+
+http://adminlte.la998.com/
