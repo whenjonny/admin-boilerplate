@@ -15,6 +15,7 @@
 
         <!-- Styles -->
         @yield('before-styles')
+        <style> .wrapper,.content-wrapper { min-height: 1000px !important; } </style>
 
         <!-- Check if the language is set to RTL, so apply the RTL layouts -->
         <!-- Otherwise apply the normal LTR layouts -->

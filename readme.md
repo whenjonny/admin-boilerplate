@@ -33,3 +33,18 @@
 [Click here view helper](http://labs.infyom.com/laravelgenerator/docs/5.3/getting-started#field-inputs)
 
 http://adminlte.la998.com/
+
+## 操作记录 
+
+### 创建数据表
+
+    php artisan infyom:scaffold Upload --save --paginate=10
+    字段:
+        title string,255 text
+        required
+        description string,255 text
+        required
+
+
+
+
