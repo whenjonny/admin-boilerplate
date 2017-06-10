@@ -110,7 +110,7 @@ class InfyomParser extends Command
  
         $fileFields[] = [
             'name'        => 'status',
-            'dbType'      => 'integer',
+            'dbType'      => 'integer:nullable',
             'htmlType'    => null,
             'validations' => null,
             'searchable'  => true,
