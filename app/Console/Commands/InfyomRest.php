@@ -51,7 +51,7 @@ class InfyomRest extends Command
 
         if($this->confirm('Do you want to generate code?')) {
             $this->call('infyom:api', [
-                'model'=>$modelName, '--fieldsFile'=>$path.$fileName, '--skip'=>'migration'
+                'model'=>$modelName, '--fieldsFile'=>$path.$modelName.".json", '--skip'=>'migration'
             ]);
         }
     }
