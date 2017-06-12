@@ -36,15 +36,26 @@ http://adminlte.la998.com/
 
 ## 操作记录 
 
-### 创建数据表
+### 编写数据库模型文件
 
-    php artisan infyom:scaffold Upload --save --paginate=10
-    字段:
-        title string,255 text
-        required
-        description string,255 text
-        required
+    1. 约定:
+        最后一个单词为数据表名
+        表名大写且不带后缀
+        
+        resources/model_schemas/Post
 
+    2. 编写规则
 
+        title string,255 text required null
+        description string,255 text required ii
+        具体参考 #generate code
 
+    3. 生成后台 
 
+        php artisan infyom:parser Post
+    
+    4. 生成接口
+
+        php artisan infyom:rest Post
+
+    注意：生成的代码会覆盖，善于使用git 
