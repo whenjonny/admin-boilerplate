@@ -3,10 +3,10 @@
 @section ('title', trans('labels.backend.access.users.management') . ' | ' . trans('labels.backend.access.users.create'))
 
 @section('page-header')
-    <h1>
+    <h5>
         {{ trans('labels.backend.access.users.management') }}
         <small>{{ trans('labels.backend.access.users.create') }}</small>
-    </h1>
+    </h5>
 @endsection
 
 @section('content')

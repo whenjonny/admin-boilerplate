@@ -5,6 +5,7 @@
         {{ app_name() }}
         <small>{{ trans('strings.backend.dashboard.title') }}</small>
     </h1>
+    <br>
 @endsection
 
 @section('content')

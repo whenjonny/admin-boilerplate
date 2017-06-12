@@ -3,6 +3,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel (optional) -->
+        @if (false)
         <div class="user-panel">
             <div class="pull-left image">
                 <img src="{{ access()->user()->picture }}" class="img-circle" alt="User Image" />
@@ -23,13 +24,13 @@
                     <button type='submit' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
                   </span><!--input-group-btn-->
         </div><!--input-group-->
-    {{ Form::close() }}
-    <!-- /.search form -->
+        {{ Form::close() }}
+        <!-- /.search form -->
+        @endif
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">{{ trans('menus.backend.sidebar.general') }}</li>
-
             <li class="{{ active_class(Active::checkUriPattern('admin/dashboard')) }}">
                 <a href="{{ route('admin.dashboard') }}">
                     <i class="fa fa-dashboard"></i>
@@ -42,10 +43,8 @@
             @permissions(['manage-users'])
             <li class="{{ active_class(Active::checkUriPattern('admin/*')) }} treeview">
                 <a href="#">
-                    <i class="fa fa-edit"></i> <span>System Management</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
+                    <i class="fa fa-edit"></i> <span>{{trans('backend.sidebar.system_management')}}</span>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu menu-open" style="display: block;">
                 @include('backend.includes.menu')
