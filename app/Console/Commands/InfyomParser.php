@@ -40,110 +40,43 @@ class InfyomParser extends Command
     public function handle()
     {
         $this->info('Usage: php artisan infyom:parser {filePath}');
-        // 1. get file path
         $filePath = $this->argument('filePath');
-        // 2. get file content
         while(!is_file($filePath)) {
-            $this->info('Please give me valid file path');
+            $this->info('Please give me valid relative file path');
             $filePath = $this->ask('What is your infyom file path?');
         }
         $fields = explode("\n", file_get_contents($filePath));
 
         $fileFields = [];
-        $fileFields[] = [
-            'name'        => 'id',
-            'dbType'      => 'increments',
-            'htmlType'    => null,
-            'validations' => null,
-            'searchable'  => true,
-            'fillable'    => false,
-            'inForm'      => false,
-            'inIndex'     => true,
-            'primary'     => true
-        ];
+        $fileFields[] = self::gen('id increments null null p');
 
         foreach ($fields as $row) {
+        
             if($row== '') {
                 continue;
             }
-            $field = explode(' ', $row);
-            if(in_array($field[0], array('id', 'updated_at', 'created_at', 'status'))) {
+            if(starts_with($row, 'id')) {
+                continue;
+            }
+            if(starts_with($row, 'updated_at')) {
+                continue;
+            }
+            if(starts_with($row, 'created_at')) {
+                continue;
+            }
+            if(starts_with($row, 'deleted_at')) {
+                continue;
+            }
+            if(starts_with($row, 'status')) {
                 continue;
             }
 
-            $fileField = [
-                'name'        => $field[0],
-                'dbType'      => $field[1],
-                'htmlType'    => $field[2],
-                'searchable'  => true,
-                'fillable'    => true,
-                'inForm'      => true,
-                'inIndex'     => true,
-                'primary'     => false
-            ];
-
-            if(sizeof($field) >= 4) {
-                $fileField['validations'] = $field[3];
-            }
-            if(sizeof($field) == 5) {
-                $extra = explode(',', $field[4]);
-                foreach($extra as $e) {
-                    switch($e) {
-                    case 's':
-                        $fileField['searchable'] = false;
-                        break;
-                    case 'if':
-                        $fileField['inForm'] = false;
-                        break;
-                    case 'ii':
-                        $fileField['inIndex'] = false;
-                        break;
-                    case 'f':
-                        $fileField['fillable'] = false;
-                        break;
-                    }
-                }
-            }
-
-            $fileFields[] = $fileField;
+            $fileFields[] = self::gen($row);
         }
- 
-        $fileFields[] = [
-            'name'        => 'status',
-            'dbType'      => 'integer:nullable:default,1',
-            'htmlType'    => null,
-            'validations' => null,
-            'searchable'  => true,
-            'fillable'    => false,
-            'inForm'      => false,
-            'inIndex'     => false,
-            'primary'     => false 
-        ];
 
-        
-        $fileFields[] = [
-            'name'        => 'updated_at',
-            'dbType'      => 'timestamp',
-            'htmlType'    => null,
-            'validations' => null,
-            'searchable'  => false,
-            'fillable'    => false,
-            'inForm'      => false,
-            'inIndex'     => false,
-            'primary'     => false 
-        ];
-
-        $fileFields[] = [
-            'name'        => 'created_at',
-            'dbType'      => 'timestamp',
-            'htmlType'    => null,
-            'validations' => null,
-            'searchable'  => false,
-            'fillable'    => false,
-            'inForm'      => false,
-            'inIndex'     => false,
-            'primary'     => false 
-        ];
+        $fileFields[] = self::gen('status integer:nullable:default,1 null null f,if,ii');
+        $fileFields[] = self::gen('updated_at timestamp null null s,f,if,ii');
+        $fileFields[] = self::gen('created_at timestamp null null s,f,if,ii');
 
         $path = config('infyom.laravel_generator.path.schema_files', base_path('resources/model_schemas/'));
 
@@ -151,7 +84,7 @@ class InfyomParser extends Command
         $modelName = end($modelName);
         $fileName = $modelName.'.json';
 
-        if (file_exists($path.$fileName) && !$this->confirmOverwrite($fileName)) {
+        if (file_exists($path.$fileName) && !$this->confirm($fileName.' already exists. Do you want to overwrite it? [y|N]')) {
             return;
         }
 
@@ -165,14 +98,57 @@ class InfyomParser extends Command
             ]);
         }
     }
-    
-    protected function confirmOverwrite($fileName, $prompt = '')
-    {
-        $prompt = (empty($prompt))
-            ? $fileName.' already exists. Do you want to overwrite it? [y|N]'
-            : $prompt;
 
-        return $this->confirm($prompt, false);
+    protected static function gen($row) {
+
+        $result = [
+            'name'        => '',
+            'dbType'      => '',
+            'htmlType'    => null,
+            'validations' => null,
+            'searchable'  => true,
+            'fillable'    => true,
+            'inForm'      => true,
+            'inIndex'     => true,
+            'primary'     => false
+        ];
+
+        $fields = explode(' ', trim($row));
+        switch(sizeof($fields)) {
+            case 5:
+                $options = strtolower($fields[4]);
+                $optionsArr = explode(',', $options);
+                if (in_array('s', $optionsArr)) {
+                    $result['searchable'] = false;
+                }
+                if (in_array('p', $optionsArr)) {
+                    // if field is primary key, then its not searchable, fillable, not in index & form
+                    $result['primary'] = true;
+                    $result['searchable'] = false;
+                    $result['fillable'] = false;
+                    $result['inForm'] = false;
+                    $result['inIndex'] = false;
+                }
+                if (in_array('f', $optionsArr)) {
+                    $result['fillable'] = false;
+                }
+                if (in_array('if', $optionsArr)) {
+                    $result['inForm'] = false;
+                }
+                if (in_array('ii', $optionsArr)) {
+                    $result['inIndex'] = false;
+                }
+            case 4:
+                $result['validations']  = $fields[3];
+            case 3:
+                $result['htmlType'] = $fields[2];
+            case 2:
+                $result['dbType']   = $fields[1];
+            case 1:
+                $result['name']     = $fields[0];
+        }
+
+        return $result;
     }
 
 }
