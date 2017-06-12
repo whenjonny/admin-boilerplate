@@ -13,7 +13,7 @@ class InfyomParser extends Command
      *
      * @var string
      */
-    protected $signature = 'infyom:parser {filePath}';
+    protected $signature = 'infyom:parser {ModelName}';
 
     /**
      * The console command description.
@@ -39,8 +39,11 @@ class InfyomParser extends Command
      */
     public function handle()
     {
-        $this->info('Usage: php artisan infyom:parser {filePath}');
-        $filePath = $this->argument('filePath');
+        $this->info('Usage: php artisan infyom:parser {ModelName}');
+        $modelName = $this->argument('ModelName');
+        $path = config('infyom.laravel_generator.path.schema_files', base_path('resources/model_schemas/'));
+        $filePath = $path.$modelName;
+
         while(!is_file($filePath)) {
             $this->info('Please give me valid relative file path');
             $filePath = $this->ask('What is your infyom file path?');
@@ -78,10 +81,6 @@ class InfyomParser extends Command
         $fileFields[] = self::gen('updated_at timestamp null null s,f,if,ii');
         $fileFields[] = self::gen('created_at timestamp null null s,f,if,ii');
 
-        $path = config('infyom.laravel_generator.path.schema_files', base_path('resources/model_schemas/'));
-
-        $modelName = explode('/', $filePath);
-        $modelName = end($modelName);
         $fileName = $modelName.'.json';
 
         if (file_exists($path.$fileName) && !$this->confirm($fileName.' already exists. Do you want to overwrite it? [y|N]')) {

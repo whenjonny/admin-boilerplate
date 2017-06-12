@@ -14,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
-        \App\Console\Commands\InfyomParser::class
+        \App\Console\Commands\InfyomParser::class,
+        \App\Console\Commands\InfyomRest::class
     ];
 
     /**
