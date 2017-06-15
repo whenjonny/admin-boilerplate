@@ -15,13 +15,13 @@
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "hieu-le/active": "~3.0",
-        "infyomlabs/adminlte-templates": "5.3.x-dev",
-        "infyomlabs/laravel-generator": "5.3.x-dev",
+        "infyomlabs/laravel-generator": "5.4.x-dev",
+        "laravelcollective/html": "5.4.*",
+        "infyomlabs/adminlte-templates": "5.4.x-dev",
         "laracademy/interactive-make": "^0.9.0",
         "laravel/framework": "5.4.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "laravelcollective/html": "5.4.*",
         "yajra/laravel-datatables-oracle": "6.*"
     },
     "require-dev": {
