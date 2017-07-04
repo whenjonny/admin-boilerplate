@@ -19,7 +19,7 @@ return [
 
         'repository'        => app_path('Repositories/'),
 
-        'routes'            => base_path('routes/boilerplate.php'),
+        'routes'            => base_path('routes/admin.php'),
 
         'api_routes'        => base_path('routes/api.php'),
 
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'api_prefix'  => 'api',
+    'api_prefix'  => 'v1',
 
     'api_version' => 'v1',
 

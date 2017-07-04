@@ -6,6 +6,7 @@
  */
 
 // Switch between the included languages
+Route::get('home', 'FrontendController@index');
 Route::get('lang/{lang}', 'LanguageController@swap');
 
 /* ----------------------------------------------------------------------- */
@@ -16,6 +17,14 @@ Route::get('lang/{lang}', 'LanguageController@swap');
  */
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
     includeRouteFiles(__DIR__.'/Frontend/');
+});
+
+/*
+ * Boilerplate Backend Routes
+ * Namespaces indicate folder structure
+ */
+Route::group(['namespace' => 'Backend', 'middleware' => 'admin'], function () {
+    require_once(__DIR__.'/admin.php');
 });
 
 /* ----------------------------------------------------------------------- */
@@ -35,14 +44,6 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
     includeRouteFiles(__DIR__.'/Backend/');
 });
 
-/*
- * Boilerplate Backend Routes
- * Namespaces indicate folder structure
- */
-Route::group(['namespace' => 'Backend', 'middleware' => 'admin'], function () {
-    require_once(__DIR__.'/boilerplate.php');
-});
-
-$router->get( '/_debugbar/assets/stylesheets', '\Barryvdh\Debugbar\Controllers\AssetController@css' );
-$router->get( '/_debugbar/assets/javascript', '\Barryvdh\Debugbar\Controllers\AssetController@js' );
+$router->get( '/_debugbar/assets/stylesheets', '\Barryvdh\Debugbar\Controllers\AssetController@css' )->name('debugbar.assets.css');;
+$router->get( '/_debugbar/assets/javascript', '\Barryvdh\Debugbar\Controllers\AssetController@js' )->name('debugbar.assets.js');
 

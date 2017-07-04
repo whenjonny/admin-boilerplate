@@ -94,3 +94,31 @@ if (! function_exists('getRtlCss')) {
         return implode('/', $path).'/'.$filename.'.rtl.css';
     }
 }
+
+if (! function_exists('json_format')) {
+    function json_format($data, $ret = 1, $info = '') {
+        return array(
+            'ret' => $ret,
+            'data' => $data,
+            'info' => $info
+        );
+    }
+}
+
+if (! function_exists('output')) {
+    function output($data = [], $info = '') {
+        return json_format($data, 1, $info);
+    }
+}
+
+if (! function_exists('error')) {
+    function error($info = '', $data = []) {
+        return json_format($data, 0, $info);
+    }
+}
+
+if (! function_exists('exception')) {
+    function exception($info = '') {
+        throw new \App\Exceptions\ServiceErrorException($info);
+    }
+}

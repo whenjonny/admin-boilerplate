@@ -60,6 +60,17 @@ class Handler extends ExceptionHandler
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 
+        /**
+         * Service Error Exception
+         */
+        if ($exception instanceof ServiceErrorException) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(error($exception->getMessage()));
+            } else {
+                return response()->view('errors.404', [ ], 404);
+            }
+        }
+
         return parent::render($request, $exception);
     }
 
