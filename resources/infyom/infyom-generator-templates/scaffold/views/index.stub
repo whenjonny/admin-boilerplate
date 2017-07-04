@@ -6,11 +6,8 @@
         <small> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }} </small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> {{ trans('navs.general.home') }}</a></li>
-        <li><a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}"> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }}</a></li>
-        <li class="active">
-            <a style="color:white" class="btn btn-primary btn-xs" href="{!! route('posts.create') !!}">{{ trans('buttons.general.crud.create') }}</a>
-        </li>
+        <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> {{ trans('navs.general.home') }}</a></li>
+        <li class="active">{{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }}</li>
     </ol>
 @endsection
 
@@ -21,6 +18,28 @@
 
     <div class="clearfix"></div>
     <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }}</h3>
+            <div class="box-tools pull-right">
+                <div class="pull-right mb-10 hidden-sm hidden-xs">
+                    {{ link_to_route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create', trans('buttons.general.crud.create'), [], ['class' => 'btn btn-success btn-xs']) }}
+                </div><!--pull right-->
+
+                <div class="pull-right mb-10 hidden-lg hidden-md">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            {{ trans('labels.general.actions') }} <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            <li> {{ link_to_route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create', trans('buttons.general.crud.create')) }} </li>
+                        </ul>
+                    </div><!--btn group-->
+                </div><!--pull right-->
+            </div><!--box-tools pull-right-->
+
+            <div class="clearfix"></div>
+        </div>
         <div class="box-body">
                 @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.table')
         </div>
