@@ -1,22 +1,28 @@
 @extends('backend.layouts.app')
 
+@section('page-header')
+    <h1>
+        {{ app_name() }}
+        <small> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }} </small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> {{ trans('navs.general.home') }}</a></li>
+        <li><a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}"> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }}</a></li>
+        <li class="active">
+            <a style="color:white" class="btn btn-primary btn-xs" href="{!! route('posts.create') !!}">{{ trans('buttons.general.crud.create') }}</a>
+        </li>
+    </ol>
+@endsection
+
 @section('content')
-    <section class="content-header">
-        <h1 class="pull-left">$MODEL_NAME_PLURAL_HUMAN$</h1>
-        <h1 class="pull-right">
-           <a class="btn btn-primary pull-right" href="{!! route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.create') !!}">Add New</a>
-        </h1>
-    </section>
-    <div class="content">
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        @include('flash::message')
+    @include('flash::message')
 
-        <div class="clearfix"></div>
-        <div class="box box-primary">
-            <div class="box-body">
-                    @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.table')
-            </div>
+    <div class="clearfix"></div>
+    <div class="box box-primary">
+        <div class="box-body">
+                @include('$VIEW_PREFIX$$MODEL_NAME_PLURAL_SNAKE$.table')
         </div>
     </div>
 @endsection

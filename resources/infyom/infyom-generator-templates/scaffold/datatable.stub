@@ -41,7 +41,7 @@ class $MODEL_NAME$DataTable extends DataTable
     {
         return $this->builder()
             ->columns($this->getColumns())
-            ->addAction(['width' => '10%', 'title' => trans('labels.actions')])
+            ->addAction(['width' => '150px', 'title' => trans('labels.general.actions')])
             ->ajax('')
             ->parameters([
                 'dom' => 'Bfrtip',
@@ -50,9 +50,12 @@ class $MODEL_NAME$DataTable extends DataTable
                     'print',
                     'reset',
                     'reload',
+                    //trans('labels.general.buttons.print'),
+                    //trans('labels.general.buttons.reset'),
+                    //trans('labels.general.buttons.reload'),
                     [
                          'extend'  => 'collection',
-                         'text'    => '<i class="fa fa-download"></i> Export',
+                         'text'    => '<i class="fa fa-download"></i> '.trans('labels.general.buttons.export'),
                          'buttons' => [
                              'csv',
                              'excel',
