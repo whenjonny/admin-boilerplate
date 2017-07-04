@@ -23,6 +23,10 @@ return [
         'buttons' => [
             'save'   => 'Save',
             'update' => 'Update',
+            'print'  => 'Print',
+            'reset'  => 'Reset',
+            'export' => 'Export',
+            'reload' => 'Reload',
         ],
         'hide'              => 'Hide',
         'inactive'          => 'Inactive',

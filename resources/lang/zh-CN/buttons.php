@@ -30,11 +30,12 @@ return [
         'cancel' => '取消',
 
         'crud' => [
-            'create' => '创建',
+            'create' => '新增记录',
             'delete' => '删除',
             'edit' => '编辑',
             'update' => '更新',
             'view' => '查看',
+            'confirm' => '确认删除?',
         ],
 
         'save' => '保存',

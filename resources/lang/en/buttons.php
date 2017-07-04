@@ -43,6 +43,7 @@ return [
             'edit'   => 'Edit',
             'update' => 'Update',
             'view'   => 'View',
+            'confirm'=> 'Are you sure?',
         ],
 
         'save' => 'Save',

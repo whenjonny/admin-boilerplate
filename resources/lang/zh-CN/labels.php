@@ -15,12 +15,20 @@ return [
 
     'general' => [
         'all' => '所有',
+        'yes'     => 'Yes',
+        'no'      => 'No',
+        'custom'  => '个性化',
         'actions' => '操作',
         'buttons' => [
             'save' => '保存',
             'update' => '更新',
+            'print'  => '打印',
+            'reset'  => '重置',
+            'export' => '导出',
+            'reload' => '刷新',
         ],
         'hide' => '隐藏',
+        'inactive' => '未激活',
         'none' => '无',
         'show' => '显示',
         'toggle_navigation' => '导航开关',
