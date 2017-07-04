@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Server Error.</title>
+        <meta charset="utf8" />
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 

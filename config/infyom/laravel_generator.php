@@ -19,7 +19,7 @@ return [
 
         'repository'        => app_path('Repositories/'),
 
-        'routes'            => base_path('routes/admin.php'),
+        'routes'            => base_path('routes/Backend/Dashboard.php'),
 
         'api_routes'        => base_path('routes/api.php'),
 

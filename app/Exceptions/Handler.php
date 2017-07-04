@@ -60,11 +60,15 @@ class Handler extends ExceptionHandler
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 
+        $isApi = false;
+        if($request->route()->getPrefix() == config('infyom.laravel_generator.api_prefix')) {
+            $isApi = true;
+        }
         /**
          * Service Error Exception
          */
         if ($exception instanceof ServiceErrorException) {
-            if ($request->ajax() || $request->wantsJson()) {
+            if ($isApi || $request->ajax() || $request->wantsJson()) {
                 return response()->json(error($exception->getMessage()));
             } else {
                 return response()->view('errors.500', [ 'message' => $exception->getMessage() ], 500);
@@ -74,7 +78,8 @@ class Handler extends ExceptionHandler
          * Expire Error Exception
          */
         if ($exception instanceof ExpireErrorException) {
-            if ($request->ajax() || $request->wantsJson()) {
+
+            if ($isApi || $request->ajax() || $request->wantsJson()) {
                 // login expire
                 return response()->json(error($exception->getMessage(), [], 2));
             } else {

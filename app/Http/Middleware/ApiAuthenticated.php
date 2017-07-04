@@ -22,6 +22,7 @@ class ApiAuthenticated
         if(access()->guest()) {
             return expire('请先登录');
         }
+        $request->setRequestFormat('json');
         return $next($request);
     }
 }

@@ -97,6 +97,9 @@ if (! function_exists('getRtlCss')) {
 
 if (! function_exists('json_format')) {
     function json_format($data, $ret = 1, $info = '') {
+        if(empty($data)) {
+            $data = new \stdClass;
+        }
         return array(
             'ret' => $ret,
             'data' => $data,

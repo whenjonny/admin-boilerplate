@@ -17,3 +17,19 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 });
 
+/*
+ * Api Interface Routes
+ * Namespaces indicate folder structure
+ */
+Route::group(['as' => 'api.', 'middleware' => 'guest.api'], function () {
+    Route::resource('login', 'LoginAPIController', ['only' => ['store', 'index']]);
+    Route::resource('register', 'RegisterAPIController', ['only' => ['store']]);
+});
+
+/*
+ * Api Interface Routes
+ * Namespaces indicate folder structure
+ */
+Route::group(['as' => 'api.', 'middleware' => 'auth.api'], function () {
+
+});

@@ -47,14 +47,14 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            #'throttle:60,1',
-            #'bindings',
+            'throttle:60,1',
+            #'bindings', //don't know why missing cookie
+            #\App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Session\Middleware\StartSession::class,
             #\App\Http\Middleware\EncryptCookies::class,
             #\Illuminate\Session\Middleware\StartSession::class,
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            #\Illuminate\View\Middleware\ShareErrorsFromSession::class,
             #\App\Http\Middleware\VerifyCsrfToken::class,
         ],
     ];
@@ -73,6 +73,7 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest.api' => \App\Http\Middleware\ResponseIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'timeout'    => \App\Http\Middleware\SessionTimeout::class,
 

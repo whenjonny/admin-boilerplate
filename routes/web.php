@@ -15,15 +15,8 @@ Route::get('lang/{lang}', 'LanguageController@swap');
  * Namespaces indicate folder structure
  */
 Route::group(['namespace' => 'Frontend', 'as' => 'frontend.'], function () {
-    includeRouteFiles(__DIR__.'/Frontend/');
-});
-
-/*
- * Boilerplate Backend Routes
- * Namespaces indicate folder structure
- */
-Route::group(['namespace' => 'Backend', 'middleware' => 'admin'], function () {
-    require_once(__DIR__.'/admin.php');
+    require_once(__DIR__.'/Frontend/Access.php');
+    require_once(__DIR__.'/Frontend/Frontend.php');
 });
 
 /* ----------------------------------------------------------------------- */
@@ -40,7 +33,17 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      *
      * Note: Administrator has all permissions so you do not have to specify the administrator role everywhere.
      */
-    includeRouteFiles(__DIR__.'/Backend/');
+    #includeRouteFiles(__DIR__.'/Backend/');
+    require_once(__DIR__.'/Backend/Access.php');
+    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+});
+
+/*
+ * Backend Boilerplate Routes
+ */
+
+Route::group(['namespace' => 'Backend', 'middleware' => 'admin'], function () {
+    require_once(__DIR__.'/Backend/Dashboard.php');
 });
 
 $router->get( '/_debugbar/assets/stylesheets', '\Barryvdh\Debugbar\Controllers\AssetController@css' )->name('debugbar.assets.css');;
