@@ -116,18 +116,21 @@ if (! function_exists('output')) {
 
 if (! function_exists('error')) {
     function error($info = '', $data = [], $code = 0) {
+        \Log::info('error', array($info));
         return json_format($data, $code, $info);
     }
 }
 
 if (! function_exists('exception')) {
     function exception($info = '') {
+        \Log::info('exception', array($info));
         throw new \App\Exceptions\ServiceErrorException($info);
     }
 }
 
 if (! function_exists('expire')) {
     function expire($info = '') {
+        \Log::info('expire', array($info));
         throw new \App\Exceptions\ExpireErrorException($info);
     }
 }
