@@ -6,7 +6,6 @@
  */
 
 // Switch between the included languages
-Route::get('home', 'FrontendController@index');
 Route::get('lang/{lang}', 'LanguageController@swap');
 
 /* ----------------------------------------------------------------------- */

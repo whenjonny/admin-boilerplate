@@ -67,7 +67,18 @@ class Handler extends ExceptionHandler
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json(error($exception->getMessage()));
             } else {
-                return response()->view('errors.404', [ ], 404);
+                return response()->view('errors.500', [ 'message' => $exception->getMessage() ], 500);
+            }
+        }
+        /**
+         * Expire Error Exception
+         */
+        if ($exception instanceof ExpireErrorException) {
+            if ($request->ajax() || $request->wantsJson()) {
+                // login expire
+                return response()->json(error($exception->getMessage(), [], 2));
+            } else {
+                return response()->view('errors.500', [ 'message' => $exception->getMessage() ], 500);
             }
         }
 

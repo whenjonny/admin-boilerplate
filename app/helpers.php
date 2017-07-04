@@ -112,13 +112,19 @@ if (! function_exists('output')) {
 }
 
 if (! function_exists('error')) {
-    function error($info = '', $data = []) {
-        return json_format($data, 0, $info);
+    function error($info = '', $data = [], $code = 0) {
+        return json_format($data, $code, $info);
     }
 }
 
 if (! function_exists('exception')) {
     function exception($info = '') {
         throw new \App\Exceptions\ServiceErrorException($info);
+    }
+}
+
+if (! function_exists('expire')) {
+    function expire($info = '') {
+        throw new \App\Exceptions\ExpireErrorException($info);
     }
 }

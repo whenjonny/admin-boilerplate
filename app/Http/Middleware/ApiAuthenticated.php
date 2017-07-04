@@ -20,7 +20,7 @@ class ApiAuthenticated
         #session()->save();
         #access()->loginUsingId(5);
         if(access()->guest()) {
-            return exception('请先登录');
+            return expire('请先登录');
         }
         return $next($request);
     }
