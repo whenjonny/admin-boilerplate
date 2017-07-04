@@ -20,9 +20,8 @@ class ApiAuthenticated
         #session()->save();
         #access()->loginUsingId(5);
         if(access()->guest()) {
-            return expire('请先登录');
+            return expire('登录超时，请重新登录');
         }
-        $request->setRequestFormat('json');
         return $next($request);
     }
 }
