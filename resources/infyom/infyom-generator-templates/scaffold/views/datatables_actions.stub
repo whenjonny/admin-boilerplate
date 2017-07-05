@@ -9,7 +9,7 @@
     {!! Form::button('<i class="glyphicon glyphicon-trash"></i>' . trans('buttons.general.crud.delete'), [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs',
-        'onclick' => "return confirm('{{ trans('buttons.general.crud.confirm') }}')"
+        'onclick' => "return confirm('".trans('buttons.general.crud.confirm') ."');"
     ]) !!}
 </div>
 {!! Form::close() !!}

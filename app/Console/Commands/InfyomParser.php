@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use InfyOm\Generator\Utils\FileUtil;
 use InfyOm\Generator\Utils\GeneratorFieldsInputUtil;
+use Illuminate\Support\Str;
 
 class InfyomParser extends Command
 {
@@ -53,6 +54,8 @@ class InfyomParser extends Command
         $fileFields = [];
         $fileFields[] = self::gen('id increments null null p');
 
+        $names = [];
+
         foreach ($fields as $row) {
         
             if($row== '') {
@@ -74,7 +77,9 @@ class InfyomParser extends Command
                 continue;
             }
 
-            $fileFields[] = self::gen($row);
+            $row = self::gen($row);
+            $fileFields[] = $row;
+            $names[] = $row['name'];
         }
 
         $fileFields[] = self::gen('status integer:nullable:default,1 null null f,if,ii');
@@ -84,17 +89,62 @@ class InfyomParser extends Command
         $fileName = $modelName.'.json';
 
         if (file_exists($path.$fileName) && !$this->confirm($fileName.' already exists. Do you want to overwrite it? [y|N]')) {
-            return;
+            $this->info('Exit without any change.');
+            return false;
         }
 
         FileUtil::createFile($path, $fileName, json_encode($fileFields, JSON_PRETTY_PRINT));
-        $this->info("\nSchema File saved: ");
-        $this->info($fileName);
+        $this->info("\nSchema File saved: $fileName");
+
+        if($this->confirm('Do you want to generate trans?')) {
+            self::i18n($modelName, $names);
+            $this->info('language generate successfully');
+        }
 
         if($this->confirm('Do you want to generate code?')) {
             $this->call('infyom:scaffold', [
-            'model'=>$modelName, '--fieldsFile'=>$path.$fileName
+                'model'=>$modelName, '--fieldsFile'=>$path.$fileName
             ]);
+        }
+    }
+
+    protected static function i18n($modelName, $names) {
+        $languages = config('locale.languages');
+
+        $modelArr = [];
+        $modelName = Str::camel(Str::plural($modelName));
+        foreach($names as $row) {
+            $modelArr[$row] = Str::title($row);
+        }
+        $modelArr['name'] = Str::title($modelName);
+        $modelArr['id'] = Str::title('ID');
+
+        foreach($languages as $key=>$lang) {
+            $backend = [];
+            $filePath = base_path("resources/lang/$key/backend.php");
+            if(!file_exists($filePath)) {
+                $backend = [];
+            }
+            else {
+                $backend = require_once($filePath);
+            }
+
+            if($key == 'zh-CN') {
+                $modelArr['updated_at'] = '更新时间';
+                $modelArr['created_at'] = '创建时间';
+                $modelArr['deleted_at'] = '删除时间';
+                $modelArr['status'] = '状态';
+            }
+            else {
+                $modelArr['updated_at'] = Str::title('updated_at');
+                $modelArr['created_at'] = Str::title('created_at');
+                $modelArr['deleted_at'] = Str::title('deleted_at');
+                $modelArr['status'] = Str::title('status');
+            }
+
+            $backend[$modelName] = $modelArr;
+            $text='<?php return '.var_export($backend, true).';';
+            file_put_contents($filePath, $text);
         }
     }
 
