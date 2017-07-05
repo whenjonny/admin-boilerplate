@@ -96,6 +96,9 @@ if (! function_exists('getRtlCss')) {
 }
 
 if (! function_exists('json_format')) {
+    /**
+     * Format json, validate the response
+     */
     function json_format($data, $ret = 1, $info = '') {
         if(empty($data)) {
             $data = new \stdClass;
@@ -134,3 +137,22 @@ if (! function_exists('expire')) {
         throw new \App\Exceptions\ExpireErrorException($info);
     }
 }
+
+if (! function_exists('upload')) {
+    function upload($file) {
+        $image_folder = '/files';
+
+        if(!is_dir($image_folder)) {
+            @mkdir($image_folder);
+        }
+
+        $image_path   = public_path($image_folder);
+        $extension = $file->extension();
+        $filename = md5(time(). '-' . $file->name->getClientOriginalName()) .".".$extension ;
+        $file->move($image_path, $filename);
+        $path = "$image_folder/$filename";
+
+        return $path;
+    }
+}
+
