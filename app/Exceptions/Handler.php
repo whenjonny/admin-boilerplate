@@ -60,10 +60,14 @@ class Handler extends ExceptionHandler
             return redirect()->back()->withInput()->withFlashDanger($exception->getMessage());
         }
 
+        /** 
+         * Judge is api or not
+         */
         $isApi = false;
-        if($request->route() && $request->route()->getPrefix() == config('infyom.laravel_generator.api_prefix')) {
+        if($request->is(config('infyom.laravel_generator.api_prefix').'/*')) {
             $isApi = true;
         }
+       
         /**
          * Service Error Exception
          */
