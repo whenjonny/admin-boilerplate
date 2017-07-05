@@ -61,7 +61,7 @@ class Handler extends ExceptionHandler
         }
 
         $isApi = false;
-        if($request->route()->getPrefix() == config('infyom.laravel_generator.api_prefix')) {
+        if($request->route() && $request->route()->getPrefix() == config('infyom.laravel_generator.api_prefix')) {
             $isApi = true;
         }
         /**
