@@ -142,9 +142,13 @@ class InfyomParser extends Command
         FileUtil::createFile($path, $fileName, json_encode($fileFields, JSON_PRETTY_PRINT));
         $this->info("\nSchema File saved: $fileName");
 
+        $skip = 'migration';
+        if($this->confirm('Do you want to generate migration?')) {
+            $skip = '';
+        }
         if($this->confirm('Do you want to generate code?')) {
             $this->call('infyom:scaffold', [
-                'model'=>$modelName, '--fieldsFile'=>$path.$fileName, '--skip'=>'migration'
+                'model'=>$modelName, '--fieldsFile'=>$path.$fileName, '--skip'=>$skip
             ]);
         }
     }
