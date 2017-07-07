@@ -15,7 +15,7 @@ class InfyomParser extends Command
      *
      * @var string
      */
-    protected $signature = 'infyom:parser {ModelName} {ModelFrom?}';
+    protected $signature = 'infyom:parser {ModelName} {TableName?}';
 
     /**
      * The console command description.
@@ -41,18 +41,19 @@ class InfyomParser extends Command
      */
     public function handle()
     {
-        $this->info('Usage: php artisan infyom:parser {ModelName} {ModelFrom?}');
+        $this->info('Usage: php artisan infyom:parser {ModelName} {TableName?}');
         $modelName = $this->argument('ModelName');
-        $modelFrom = $this->argument('ModelFrom');
+        $tableName = $this->argument('TableName');
 
-        switch($modelFrom) {
-        case 'table':
-            $fields = $this->fromTable($modelName);
-            break;
-        case 'file':
-        default:
+        if($tableName) {
+            $fields = $this->fromTable($modelName, $tableName);
+        }
+        else {
             $fields= $this->fromFile($modelName);
-            break;
+        }
+
+        if(empty($fields)) {
+            return false;
         }
         
         if($this->confirm('Do you want to generate trans?')) {
@@ -61,8 +62,11 @@ class InfyomParser extends Command
         }
     }
 
-    protected function fromTable($modelName) {
-        $tableName = Str::camel(Str::plural($modelName));
+    protected function fromTable($modelName, $tableName) {
+        if($tableName != Str::camel(Str::plural($modelName))) {
+            $this->info('table name not in accordance with the rules');
+            return false;
+        }
 
         $tableFieldsGenerator = new TableFieldsGenerator($tableName);
         $tableFieldsGenerator->prepareFieldsFromTable();
