@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use InfyOm\Generator\Utils\FileUtil;
 use InfyOm\Generator\Utils\GeneratorFieldsInputUtil;
+use InfyOm\Generator\Utils\TableFieldsGenerator;
 use Illuminate\Support\Str;
 
 class InfyomParser extends Command
@@ -14,7 +15,7 @@ class InfyomParser extends Command
      *
      * @var string
      */
-    protected $signature = 'infyom:parser {ModelName}';
+    protected $signature = 'infyom:parser {ModelName} {ModelFrom?}';
 
     /**
      * The console command description.
@@ -40,8 +41,53 @@ class InfyomParser extends Command
      */
     public function handle()
     {
-        $this->info('Usage: php artisan infyom:parser {ModelName}');
+        $this->info('Usage: php artisan infyom:parser {ModelName} {ModelFrom?}');
         $modelName = $this->argument('ModelName');
+        $modelFrom = $this->argument('ModelFrom');
+
+        switch($modelFrom) {
+        case 'table':
+            $fields = $this->fromTable($modelName);
+            break;
+        case 'file':
+        default:
+            $fields= $this->fromFile($modelName);
+            break;
+        }
+        
+        if($this->confirm('Do you want to generate trans?')) {
+            self::i18n($modelName, $fields);
+            $this->info('language generate successfully');
+        }
+    }
+
+    protected function fromTable($modelName) {
+        $tableName = Str::camel(Str::plural($modelName));
+
+        $tableFieldsGenerator = new TableFieldsGenerator($tableName);
+        $tableFieldsGenerator->prepareFieldsFromTable();
+        #$tableFieldsGenerator->prepareRelations();
+
+        $fields = $tableFieldsGenerator->fields;
+
+        $fieldsArr = [];
+        foreach($fields as $field) {
+            $fieldsArr[] = $field->name;
+        }
+
+        if($this->confirm('Do you want to generate code?')) {
+            $this->call('infyom:scaffold', [
+                'model'=>$modelName, 
+                '--fromTable'=>true,
+                '--tableName'=>'posts',
+                '--skip' => 'migration'
+            ]);
+        }
+
+        return $fieldsArr;
+    }
+
+    protected function fromFile($modelName) {
         $path = config('infyom.laravel_generator.path.schema_files', base_path('resources/model_schemas/'));
         $filePath = $path.$modelName;
 
@@ -96,27 +142,23 @@ class InfyomParser extends Command
         FileUtil::createFile($path, $fileName, json_encode($fileFields, JSON_PRETTY_PRINT));
         $this->info("\nSchema File saved: $fileName");
 
-        if($this->confirm('Do you want to generate trans?')) {
-            self::i18n($modelName, $names);
-            $this->info('language generate successfully');
-        }
-
         if($this->confirm('Do you want to generate code?')) {
             $this->call('infyom:scaffold', [
-                'model'=>$modelName, '--fieldsFile'=>$path.$fileName
+                'model'=>$modelName, '--fieldsFile'=>$path.$fileName, '--skip'=>'migration'
             ]);
         }
     }
+
 
     protected static function i18n($modelName, $names) {
         $languages = config('locale.languages');
 
         $modelArr = [];
-        $modelName = Str::camel(Str::plural($modelName));
+        $tableName = Str::camel(Str::plural($modelName));
         foreach($names as $row) {
             $modelArr[$row] = Str::title($row);
         }
-        $modelArr['name'] = Str::title($modelName);
+        $modelArr['__TABLENAME__'] = Str::title($tableName);
         $modelArr['id'] = Str::title('ID');
 
         foreach($languages as $key=>$lang) {
@@ -142,7 +184,7 @@ class InfyomParser extends Command
                 $modelArr['status'] = Str::title('status');
             }
 
-            $backend[$modelName] = $modelArr;
+            $backend[$tableName] = $modelArr;
             $text='<?php return '.var_export($backend, true).';';
             file_put_contents($filePath, $text);
         }
