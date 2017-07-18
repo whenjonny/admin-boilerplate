@@ -30,7 +30,7 @@ class $MODEL_NAME$APIController extends AppBaseController
         $this->$MODEL_NAME_CAMEL$Repository->pushCriteria(new LimitOffsetCriteria($request));
         $$MODEL_NAME_PLURAL_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->all();
 
-        return $this->sendResponse($$MODEL_NAME_PLURAL_CAMEL$->toArray(), '$MODEL_NAME_PLURAL_HUMAN$ retrieved successfully');
+        return $this->sendResponse($$MODEL_NAME_PLURAL_CAMEL$->toArray(), trans('flash.api.retrieve_success', ['model' => '$MODEL_NAME_PLURAL_HUMAN$']));
     }
 
     $DOC_STORE$
@@ -40,7 +40,7 @@ class $MODEL_NAME$APIController extends AppBaseController
 
         $$MODEL_NAME_PLURAL_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->create($input);
 
-        return $this->sendResponse($$MODEL_NAME_PLURAL_CAMEL$->toArray(), '$MODEL_NAME_HUMAN$ saved successfully');
+        return $this->sendResponse($$MODEL_NAME_PLURAL_CAMEL$->toArray(), trans('flash.api.save_success', ['model' => '$MODEL_NAME_HUMAN$']));
     }
 
     $DOC_SHOW$
@@ -50,10 +50,10 @@ class $MODEL_NAME$APIController extends AppBaseController
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
 
         if (empty($$MODEL_NAME_CAMEL$)) {
-            return $this->sendError('$MODEL_NAME_HUMAN$ not found');
+            return $this->sendError(trans('flash.api.not_found', ['model'=>'$MODEL_NAME_HUMAN$']));
         }
 
-        return $this->sendResponse($$MODEL_NAME_CAMEL$->toArray(), '$MODEL_NAME_HUMAN$ retrieved successfully');
+        return $this->sendResponse($$MODEL_NAME_CAMEL$->toArray(), trans('flash.api.retrieve_success', ['model' => '$MODEL_NAME_HUMAN$']));
     }
 
     $DOC_UPDATE$
@@ -65,12 +65,12 @@ class $MODEL_NAME$APIController extends AppBaseController
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
 
         if (empty($$MODEL_NAME_CAMEL$)) {
-            return $this->sendError('$MODEL_NAME_HUMAN$ not found');
+            return $this->sendError(trans('flash.api.not_found', ['model'=>'$MODEL_NAME_HUMAN$']));
         }
 
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->update($input, $id);
 
-        return $this->sendResponse($$MODEL_NAME_CAMEL$->toArray(), '$MODEL_NAME$ updated successfully');
+        return $this->sendResponse($$MODEL_NAME_CAMEL$->toArray(), trans('flash.api.update_success', ['model' => '$MODEL_NAME$']));
     }
 
     $DOC_DESTROY$
@@ -85,6 +85,6 @@ class $MODEL_NAME$APIController extends AppBaseController
 
         $$MODEL_NAME_CAMEL$->delete();
 
-        return $this->sendResponse($id, '$MODEL_NAME_HUMAN$ deleted successfully');
+        return $this->sendResponse($id, trans('flash.api.delete_success', ['model' => '$MODEL_NAME_HUMAN$']));
     }
 }

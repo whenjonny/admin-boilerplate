@@ -53,7 +53,6 @@ class InfyomParser extends Command
         }
 
         if(empty($fields)) {
-            dd(1);
             return false;
         }
         
