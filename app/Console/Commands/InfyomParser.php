@@ -53,6 +53,7 @@ class InfyomParser extends Command
         }
 
         if(empty($fields)) {
+            dd(1);
             return false;
         }
         
@@ -136,11 +137,15 @@ class InfyomParser extends Command
         $fileFields[] = self::gen('updated_at timestamp null null s,f,if,ii');
         $fileFields[] = self::gen('created_at timestamp null null s,f,if,ii');
 
+        $names[] = 'status';
+        $names[] = 'updated_at';
+        $names[] = 'cerated_at';
+
         $fileName = $modelName.'.json';
 
         if (file_exists($path.$fileName) && !$this->confirm($fileName.' already exists. Do you want to overwrite it? [y|N]')) {
             $this->info('Exit without any change.');
-            return false;
+            return $names;
         }
 
         FileUtil::createFile($path, $fileName, json_encode($fileFields, JSON_PRETTY_PRINT));
@@ -155,6 +160,7 @@ class InfyomParser extends Command
                 'model'=>$modelName, '--fieldsFile'=>$path.$fileName, '--skip'=>$skip
             ]);
         }
+        return $names;
     }
 
 
