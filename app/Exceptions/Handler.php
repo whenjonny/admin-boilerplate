@@ -33,6 +33,11 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if ($exception instanceof ServiceErrorException || $exception instanceof ExpireErrorException) {
+            \Log::info('exception', array($exception->getMessage()));
+            return true;
+        }
+
         parent::report($exception);
     }
 

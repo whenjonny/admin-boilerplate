@@ -26,7 +26,7 @@ class AppBaseController extends Controller
 
     public function sendError($error, $code = 0)
     {
-        return error($message, [], $code);
+        return error($error, [], $code);
         #return Response::json(ResponseUtil::makeError($error), $code);
     }
 }
