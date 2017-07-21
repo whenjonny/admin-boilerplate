@@ -47,6 +47,7 @@ http://adminlte.la998.com/
     2. 编写规则
 
         title string,255 text required null
+        summary string,255:nullable:default,'' text required null
         description string,255 text required ii
         具体参考 #generate code
 
