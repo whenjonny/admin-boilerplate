@@ -83,7 +83,7 @@ class InfyomParser extends Command
             $this->call('infyom:scaffold', [
                 'model'=>$modelName, 
                 '--fromTable'=>true,
-                '--tableName'=>'posts',
+                '--tableName'=>$tableName,
                 '--skip' => 'migration'
             ]);
         }
