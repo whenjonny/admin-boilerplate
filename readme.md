@@ -18,7 +18,7 @@
     
     npm install
 
-    yarn
+    #yarn
 
     Create Database & Change Env
 
@@ -29,10 +29,12 @@
     php artisan db:seed
 
 ## Generate code
+    
+### 查看生成代码的具体脚本
+    [Click here view helper](http://labs.infyom.com/laravelgenerator/docs/5.3/getting-started#field-inputs)
 
-[Click here view helper](http://labs.infyom.com/laravelgenerator/docs/5.3/getting-started#field-inputs)
-
-http://adminlte.la998.com/
+### 后台模版案例参考
+    http://adminlte.la998.com/
 
 ## 操作记录 
 
@@ -49,7 +51,7 @@ http://adminlte.la998.com/
         title string,255 text required null
         summary string,255:nullable:default,'' text required null
         description string,255 text required ii
-        具体参考 #generate code
+        具体参考 #[generate code](#generate-code)
 
     3. 生成后台 
 
