@@ -22,7 +22,8 @@
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "yajra/laravel-datatables-oracle": "6.*"
+        "yajra/laravel-datatables-oracle": "6.*",
+		"infyomlabs/swagger-generator": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
