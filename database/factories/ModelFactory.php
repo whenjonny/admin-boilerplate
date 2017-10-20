@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator;
+use Faker\Generator\zh_CN\PhoneNumber;
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
 
@@ -21,6 +22,7 @@ $factory->define(User::class, function (Generator $faker) {
     return [
         'name'              => $faker->name,
         'email'             => $faker->safeEmail,
+        'phone'             => $faker->phoneNumber,
         'password'          => $password ?: $password = bcrypt('secret'),
         'remember_token'    => str_random(10),
         'confirmation_code' => md5(uniqid(mt_rand(), true)),
