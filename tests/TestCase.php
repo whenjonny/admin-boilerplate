@@ -6,11 +6,12 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 /**
  * Class TestCase.
  */
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+abstract class TestCase extends BaseTestCase
 {
     use DatabaseTransactions;
 
@@ -71,6 +72,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function setUp()
     {
         parent::setUp();
+        $this->baseUrl = env('APP_URL');
 
         // Set up the database
         Artisan::call('migrate:refresh');
