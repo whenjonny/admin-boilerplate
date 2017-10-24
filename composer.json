@@ -15,7 +15,7 @@
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "hieu-le/active": "~3.0",
-        "infyomlabs/laravel-generator": "5.5.x-dev",
+        "infyomlabs/laravel-generator": "dev-bugfix/swaggerTemplate",
         "laravelcollective/html": "5.5.*",
         "infyomlabs/adminlte-templates": "5.5.x-dev",
         "laracademy/interactive-make": "^0.9.0",
@@ -71,6 +71,13 @@
     },
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true
-    }
+        "sort-packages": true,
+		"secure-http": false
+    },
+    "repositories": [
+        {
+            "url": "git@git.pires.cn:skys215/laravel-generator.git",
+            "type": "git"
+        }
+    ]
 }
