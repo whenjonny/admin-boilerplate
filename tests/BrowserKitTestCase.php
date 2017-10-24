@@ -62,7 +62,8 @@ abstract class BrowserKitTestCase extends BaseTestCase
     {
         parent::setUp();
 
-        $this->baseUrl = config('app.url', 'http://l5boilerplate.dev');
+        // $this->baseUrl = config('app.url', 'http://l5boilerplate.dev');
+        $this->baseUrl = env('APP_URL');
 
         // Set up the database
         Artisan::call('migrate:refresh');
