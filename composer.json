@@ -16,14 +16,15 @@
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "hieu-le/active": "~3.0",
         "infyomlabs/laravel-generator": "dev-bugfix/swaggerTemplate",
-        "laravelcollective/html": "5.5.*",
         "infyomlabs/adminlte-templates": "5.5.x-dev",
+        "infyomlabs/swagger-generator": "dev-master",
+        "jlapp/swaggervel": "dev-feature/support5.5",
         "laracademy/interactive-make": "^0.9.0",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
-        "yajra/laravel-datatables-oracle": "6.*",
-		"infyomlabs/swagger-generator": "dev-master"
+        "laravelcollective/html": "5.5.*",
+        "yajra/laravel-datatables-oracle": "6.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -45,9 +46,6 @@
         ]
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        },
         "classmap": [
             "tests/TestCase.php",
             "tests/BrowserKitTestCase.php",
@@ -79,6 +77,10 @@
     "repositories": [
         {
             "url": "git@git.pires.cn:skys215/laravel-generator.git",
+            "type": "git"
+        },
+        {
+            "url": "git@git.pires.cn:skys215/Swaggervel.git",
             "type": "git"
         }
     ]
