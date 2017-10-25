@@ -89,7 +89,7 @@ class LoggedInFormTest extends BrowserKitTestCase
         $this->actingAs($this->user)
              ->visit('/account')
              ->see('My Account')
-             ->type('1234', 'old_password')
+             ->type('tupai123', 'old_password')
              ->type($password, 'password')
              ->type($password, 'password_confirmation')
              ->press('change-password')

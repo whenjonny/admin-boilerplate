@@ -115,7 +115,7 @@ class LoggedOutFormTest extends BrowserKitTestCase
         //User Test
         $this->visit('/login')
              ->type($this->user->email, 'email')
-             ->type('1234', 'password')
+             ->type('tupai123', 'password')
              ->press('Login')
              ->seePageIs('/dashboard')
              ->see($this->user->email);
@@ -125,7 +125,7 @@ class LoggedOutFormTest extends BrowserKitTestCase
         //Admin Test
         $this->visit('/login')
              ->type($this->admin->email, 'email')
-             ->type('1234', 'password')
+             ->type('tupai123', 'password')
              ->press('Login')
              ->seePageIs('/admin/dashboard')
              ->see($this->admin->name)
