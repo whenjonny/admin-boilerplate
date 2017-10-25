@@ -35,6 +35,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'as' => 'admin.', '
      */
     #includeRouteFiles(__DIR__.'/Backend/');
     require(__DIR__.'/Backend/Access.php');
+    require(__DIR__.'/Backend/Search.php');
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 });
 
