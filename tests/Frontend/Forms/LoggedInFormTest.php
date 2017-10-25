@@ -17,6 +17,7 @@ class LoggedInFormTest extends BrowserKitTestCase
                  ->visit('/account')
                  ->type('', 'name')
                  ->type('', 'email')
+                 ->type('', 'phone')
                  ->press('update-profile')
                  ->seePageIs('/account')
                  ->see('The name field is required.')

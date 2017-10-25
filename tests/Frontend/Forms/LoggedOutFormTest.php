@@ -43,9 +43,10 @@ class LoggedOutFormTest extends BrowserKitTestCase
         Event::fake();
 
         // Create any needed resources
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create(env('APP_FAKER_LOCALE','en_US'));
         $name = $faker->name;
         $email = $faker->safeEmail;
+        $phone = $faker->phoneNumber;
         $password = $faker->password(8);
 
         // Check if confirmation required is on or off
@@ -55,13 +56,14 @@ class LoggedOutFormTest extends BrowserKitTestCase
             $this->visit('/register')
                  ->type($name, 'name')
                  ->type($email, 'email')
+                 ->type($phone, 'phone')
                  ->type($password, 'password')
                  ->type($password, 'password_confirmation')
                  ->press('Register')
                  ->see('Your account was successfully created. We have sent you an e-mail to confirm your account.')
                  ->see('Login')
                  ->seePageIs('/')
-                 ->seeInDatabase(config('access.users_table'), ['email' => $email, 'name' => $name]);
+                 ->seeInDatabase(config('access.users_table'), ['email' => $email, 'phone' => $phone, 'name' => $name]);
 
             // Get the user that was inserted into the database
             $user = User::where('email', $email)->first();
@@ -73,12 +75,13 @@ class LoggedOutFormTest extends BrowserKitTestCase
             $this->visit('/register')
                  ->type($name, 'name')
                  ->type($email, 'email')
+                 ->type($phone, 'phone')
                  ->type($password, 'password')
                  ->type($password, 'password_confirmation')
                  ->press('Register')
                  ->see('Dashboard')
                  ->seePageIs('/')
-                 ->seeInDatabase(config('access.users_table'), ['email' => $email, 'name' => $name]);
+                 ->seeInDatabase(config('access.users_table'), ['email' => $email, 'phone' => $phone, 'name' => $name]);
         }
 
         Event::assertDispatched(UserRegistered::class);

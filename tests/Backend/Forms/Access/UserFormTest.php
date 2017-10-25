@@ -21,6 +21,7 @@ class UserFormTest extends BrowserKitTestCase
              ->visit('/admin/access/user/create')
              ->type('', 'name')
              ->type('', 'email')
+             ->type('', 'phone')
              ->type('', 'password')
              ->type('', 'password_confirmation')
              ->press('Create')
@@ -35,6 +36,7 @@ class UserFormTest extends BrowserKitTestCase
              ->visit('/admin/access/user/create')
              ->type('Test User', 'name')
              ->type('test@test.com', 'email')
+             ->type('13800138000', 'phone')
              ->type('123456', 'password')
              ->type('1234567', 'password_confirmation')
              ->press('Create')
@@ -47,15 +49,17 @@ class UserFormTest extends BrowserKitTestCase
         Event::fake();
 
         // Create any needed resources
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create(env('APP_FAKER_LOCALE','en_US'));
         $name = $faker->name;
         $email = $faker->safeEmail;
+        $phone = $faker->phoneNumber;
         $password = $faker->password(8);
 
         $this->actingAs($this->admin)
              ->visit('/admin/access/user/create')
              ->type($name, 'name')
              ->type($email, 'email')
+             ->type($phone, 'phone')
              ->type($password, 'password')
              ->type($password, 'password_confirmation')
              ->seeIsChecked('status')
@@ -82,15 +86,17 @@ class UserFormTest extends BrowserKitTestCase
         Notification::fake();
 
         // Create any needed resources
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create(env('APP_FAKER_LOCALE','en_US'));
         $name = $faker->name;
         $email = $faker->safeEmail;
+        $phone = $faker->phoneNumber;
         $password = $faker->password(8);
 
         $this->actingAs($this->admin)
              ->visit('/admin/access/user/create')
              ->type($name, 'name')
              ->type($email, 'email')
+             ->type($phone, 'phone')
              ->type($password, 'password')
              ->type($password, 'password_confirmation')
              ->seeIsChecked('status')
@@ -101,7 +107,7 @@ class UserFormTest extends BrowserKitTestCase
              ->press('Create')
              ->seePageIs('/admin/access/user')
              ->see('The user was successfully created.')
-             ->seeInDatabase(config('access.users_table'), ['name' => $name, 'email' => $email, 'status' => 1, 'confirmed' => 0])
+             ->seeInDatabase(config('access.users_table'), ['name' => $name, 'email' => $email, 'phone' => $phone, 'status' => 1, 'confirmed' => 0])
              ->seeInDatabase(config('access.role_user_table'), ['user_id' => 4, 'role_id' => 2])
              ->seeInDatabase(config('access.role_user_table'), ['user_id' => 4, 'role_id' => 3]);
 
@@ -121,6 +127,7 @@ class UserFormTest extends BrowserKitTestCase
              ->visit('/admin/access/user/create')
              ->type('User', 'name')
              ->type('user@user.com', 'email')
+             ->type('13800138000', 'phone')
              ->type('123456', 'password')
              ->type('123456', 'password_confirmation')
              ->press('Create')
@@ -134,6 +141,7 @@ class UserFormTest extends BrowserKitTestCase
              ->visit('/admin/access/user/3/edit')
              ->type('', 'name')
              ->type('', 'email')
+             ->type('', 'phone')
              ->press('Update')
              ->see('The name field is required.')
              ->see('The email field is required.');
@@ -148,8 +156,10 @@ class UserFormTest extends BrowserKitTestCase
              ->visit('/admin/access/user/'.$this->user->id.'/edit')
              ->see($this->user->name)
              ->see($this->user->email)
+             ->see($this->user->phone)
              ->type('User New', 'name')
              ->type('user2@user.com', 'email')
+             ->type('13800138000', 'phone')
              ->uncheck('status')
              ->uncheck('confirmed')
              ->check('assignees_roles[2]')
@@ -162,6 +172,7 @@ class UserFormTest extends BrowserKitTestCase
                      'id'        => $this->user->id,
                      'name'      => 'User New',
                      'email'     => 'user2@user.com',
+                     'phone'     => '13800138000',
                      'status'    => 0,
                      'confirmed' => 0,
                  ])
