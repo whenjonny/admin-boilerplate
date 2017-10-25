@@ -3,7 +3,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        @if (false)
+        @if (env('ENABLE_SIDEBAR_SEARCH', false))
         <div class="user-panel">
             <div class="pull-left image">
                 <img src="{{ access()->user()->picture }}" class="img-circle" alt="User Image" />
