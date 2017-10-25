@@ -50,6 +50,7 @@
             "tests/TestCase.php",
             "tests/BrowserKitTestCase.php",
             "tests/ApiTestTrait.php",
+            "tests/",
             "tests/traits/"
         ]
     },
