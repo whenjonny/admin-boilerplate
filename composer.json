@@ -15,7 +15,7 @@
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "hieu-le/active": "~3.0",
-        "infyomlabs/laravel-generator": "dev-bugfix/swaggerTemplate",
+        "infyomlabs/laravel-generator": "dev-develop",
         "infyomlabs/adminlte-templates": "5.5.x-dev",
         "infyomlabs/swagger-generator": "dev-master",
         "jlapp/swaggervel": "dev-feature/support5.5",

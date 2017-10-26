@@ -23,7 +23,7 @@ class AppBaseController extends Controller
         return Response::json($this->output($result, $message));
     }
 
-    public function sendError($error, $code = 0)
+    public function sendError($error, $code = 400)
     {
         return Response::json($this->error($error, [], $code), $code);
     }
@@ -48,6 +48,10 @@ class AppBaseController extends Controller
     }
 
     protected function error($info = '', $data = [], $code = 0) {
-        return $this->json_format($data, $code, $info);
+        $ret = 1;
+        if($code>=400){
+            $ret = 0;
+        }
+        return $this->json_format($data, $ret, $info);
     }
 }
