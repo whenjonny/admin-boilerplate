@@ -15,13 +15,15 @@
         "creativeorange/gravatar": "~1.0",
         "davejamesmiller/laravel-breadcrumbs": "^3.0",
         "hieu-le/active": "~3.0",
-        "infyomlabs/laravel-generator": "5.5.x-dev",
-        "laravelcollective/html": "5.5.*",
+        "infyomlabs/laravel-generator": "dev-develop",
         "infyomlabs/adminlte-templates": "5.5.x-dev",
+        "infyomlabs/swagger-generator": "dev-master",
+        "jlapp/swaggervel": "dev-feature/support5.5",
         "laracademy/interactive-make": "^0.9.0",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
+        "laravelcollective/html": "5.5.*",
         "yajra/laravel-datatables-oracle": "6.*"
     },
     "require-dev": {
@@ -44,13 +46,11 @@
         ]
     },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        },
         "classmap": [
             "tests/TestCase.php",
             "tests/BrowserKitTestCase.php",
             "tests/ApiTestTrait.php",
+            "tests/",
             "tests/traits/"
         ]
     },
@@ -72,6 +72,17 @@
     },
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true
-    }
+        "sort-packages": true,
+		"secure-http": false
+    },
+    "repositories": [
+        {
+            "url": "git@git.pires.cn:skys215/laravel-generator.git",
+            "type": "git"
+        },
+        {
+            "url": "git@git.pires.cn:skys215/Swaggervel.git",
+            "type": "git"
+        }
+    ]
 }

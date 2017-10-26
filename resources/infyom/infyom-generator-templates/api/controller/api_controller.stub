@@ -50,7 +50,7 @@ class $MODEL_NAME$APIController extends AppBaseController
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
 
         if (empty($$MODEL_NAME_CAMEL$)) {
-            return $this->sendError(trans('flash.api.not_found', ['model'=>'$MODEL_NAME_HUMAN$']));
+            return $this->sendError(trans('flash.api.not_found', ['model'=>'$MODEL_NAME_HUMAN$']), 404);
         }
 
         return $this->sendResponse($$MODEL_NAME_CAMEL$->toArray(), trans('flash.api.retrieve_success', ['model' => '$MODEL_NAME_HUMAN$']));
@@ -65,7 +65,7 @@ class $MODEL_NAME$APIController extends AppBaseController
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
 
         if (empty($$MODEL_NAME_CAMEL$)) {
-            return $this->sendError(trans('flash.api.not_found', ['model'=>'$MODEL_NAME_HUMAN$']));
+            return $this->sendError(trans('flash.api.not_found', ['model'=>'$MODEL_NAME_HUMAN$']), 404);
         }
 
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->update($input, $id);
@@ -80,7 +80,7 @@ class $MODEL_NAME$APIController extends AppBaseController
         $$MODEL_NAME_CAMEL$ = $this->$MODEL_NAME_CAMEL$Repository->findWithoutFail($id);
 
         if (empty($$MODEL_NAME_CAMEL$)) {
-            return $this->sendError('$MODEL_NAME_HUMAN$ not found');
+            return $this->sendError('$MODEL_NAME_HUMAN$ not found', 404);
         }
 
         $$MODEL_NAME_CAMEL$->delete();

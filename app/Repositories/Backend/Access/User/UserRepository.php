@@ -93,6 +93,7 @@ class UserRepository extends BaseRepository
                 config('access.users_table').'.id',
                 config('access.users_table').'.name',
                 config('access.users_table').'.email',
+                config('access.users_table').'.phone',
                 config('access.users_table').'.status',
                 config('access.users_table').'.confirmed',
                 config('access.users_table').'.created_at',
@@ -346,6 +347,7 @@ class UserRepository extends BaseRepository
         $user = new $user();
         $user->name = $input['name'];
         $user->email = $input['email'];
+        $user->phone = $input['phone'];
         $user->password = bcrypt($input['password']);
         $user->status = isset($input['status']) ? 1 : 0;
         $user->confirmation_code = md5(uniqid(mt_rand(), true));

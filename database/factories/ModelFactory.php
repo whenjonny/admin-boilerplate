@@ -1,7 +1,8 @@
 <?php
 
 use Faker\Generator;
-use Faker\Generator\zh_CN\PhoneNumber;
+use Faker\Generator\zh_CN;
+use Faker\Generator\zh_CN\PhoneNumber;  // must be zh_CN, or it'll not pass user validation
 use App\Models\Access\Role\Role;
 use App\Models\Access\User\User;
 
