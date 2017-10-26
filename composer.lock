@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e3283f4392a3f60da0f68ccb3a0ea6dc",
+    "content-hash": "b482fc4b6a4552f3c2b52582080b3e41",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -961,11 +961,11 @@
         },
         {
             "name": "infyomlabs/laravel-generator",
-            "version": "dev-bugfix/swaggerTemplate",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "git@git.pires.cn:skys215/laravel-generator.git",
-                "reference": "5780c5d4dfa43009172a7c67993376917f29e403"
+                "reference": "5f0c2020061a5b333452b737946095c58dbac29b"
             },
             "require": {
                 "illuminate/support": "~5.0",
@@ -1022,7 +1022,7 @@
                 "test",
                 "view"
             ],
-            "time": "2017-10-24 02:49:02"
+            "time": "2017-10-26 06:49:47"
         },
         {
             "name": "infyomlabs/swagger-generator",
@@ -1333,16 +1333,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.5.18",
+            "version": "v5.5.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21"
+                "reference": "c678100e84934ec85c9f8bc26bd0a60222682719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/framework/1cc21baac11551377734b8c17ead17db4c34fe21.zip",
-                "reference": "1cc21baac11551377734b8c17ead17db4c34fe21",
+                "url": "https://files.phpcomposer.com/files/laravel/framework/c678100e84934ec85c9f8bc26bd0a60222682719.zip",
+                "reference": "c678100e84934ec85c9f8bc26bd0a60222682719",
                 "shasum": ""
             },
             "require": {
@@ -1460,7 +1460,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2017-10-19T12:50:26+00:00"
+            "time": "2017-10-25T19:10:45+00:00"
         },
         {
             "name": "laravel/socialite",
@@ -2341,16 +2341,16 @@
         },
         {
             "name": "prettus/l5-repository",
-            "version": "2.6.23",
+            "version": "2.6.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andersao/l5-repository.git",
-                "reference": "929119b6e96f6b223163db26f31c6de9971cedf3"
+                "reference": "b95fc26d69c526e2f7bb11cfde34ec529f9fe474"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/andersao/l5-repository/929119b6e96f6b223163db26f31c6de9971cedf3.zip",
-                "reference": "929119b6e96f6b223163db26f31c6de9971cedf3",
+                "url": "https://files.phpcomposer.com/files/andersao/l5-repository/b95fc26d69c526e2f7bb11cfde34ec529f9fe474.zip",
+                "reference": "b95fc26d69c526e2f7bb11cfde34ec529f9fe474",
                 "shasum": ""
             },
             "require": {
@@ -2402,7 +2402,7 @@
                 "model",
                 "repository"
             ],
-            "time": "2017-10-23T19:39:30+00:00"
+            "time": "2017-10-24T23:31:42+00:00"
         },
         {
             "name": "prettus/laravel-validation",
