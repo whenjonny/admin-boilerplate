@@ -14,6 +14,8 @@
 
 ## Basic Usage
 
+    sudo chmod -R 777 storage/ bootstrap/
+
     composer install
     
     npm install
@@ -21,6 +23,8 @@
     #yarn
 
     Create Database & Change Env
+	
+	cp .env.example .env
 
     php artisan key:generate
 
