@@ -74,15 +74,5 @@
         "preferred-install": "dist",
         "sort-packages": true,
 		"secure-http": false
-    },
-    "repositories": [
-        {
-            "url": "git@git.pires.cn:skys215/laravel-generator.git",
-            "type": "git"
-        },
-        {
-            "url": "git@git.pires.cn:skys215/Swaggervel.git",
-            "type": "git"
-        }
-    ]
+    }
 }
