@@ -1,1 +1,1 @@
-trans('backend.$MODEL_NAME_PLURAL_CAMEL$.fields.$FIELD_NAME$') => ['name' => '$FIELD_NAME$', 'data' => '$FIELD_NAME$']
+trans('backend.$MODEL_NAME_PLURAL_CAMEL$.$FIELD_NAME$') => ['name' => '$FIELD_NAME$', 'data' => '$FIELD_NAME$']
