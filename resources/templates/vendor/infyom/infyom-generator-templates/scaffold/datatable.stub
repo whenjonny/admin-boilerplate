@@ -50,12 +50,18 @@ class $MODEL_NAME$DataTable extends DataTable
                 'dom' => 'Bfrtip',
                 'scrollX' => false,
                 'buttons' => [
-                    'print',
-                    'reset',
-                    'reload',
-                    //trans('labels.general.buttons.print'),
-                    //trans('labels.general.buttons.reset'),
-                    //trans('labels.general.buttons.reload'),
+                    [
+                        'extend' => 'print',
+                        'text' => '<i class="fa fa-print"></i>'.trans('labels.general.buttons.print'),
+                    ],
+                    [
+                        'extend' => 'reset',
+                        'text' => '<i class="fa fa-undo"></i>'.trans('labels.general.buttons.reset'),
+                    ],
+                    [
+                        'extend' => 'reload',
+                        'text' => '<i class="fa fa-refresh"></i>'.trans('labels.general.buttons.reload'),
+                    ],
                     [
                          'extend'  => 'collection',
                          'text'    => '<i class="fa fa-download"></i> '.trans('labels.general.buttons.export'),
@@ -65,7 +71,10 @@ class $MODEL_NAME$DataTable extends DataTable
                              'pdf',
                          ],
                     ],
-                    'colvis'
+                    [
+                        'extend' => 'colvis',
+                        'text' => '<i class="fa fa-columns"></i> '.trans('labels.general.buttons.colvis'),
+                    ]
                 ]
             ]);
     }
