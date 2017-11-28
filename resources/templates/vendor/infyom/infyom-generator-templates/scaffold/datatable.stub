@@ -44,6 +44,9 @@ class $MODEL_NAME$DataTable extends DataTable
             ->addAction(['width' => '150px', 'title' => trans('labels.general.actions')])
             ->ajax('')
             ->parameters([
+                'language' => [
+                    'url' => url('/vendor/datatables/lang/'.config('app.locale').'.json'),
+                ],
                 'dom' => 'Bfrtip',
                 'scrollX' => false,
                 'buttons' => [
