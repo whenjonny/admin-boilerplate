@@ -3,11 +3,11 @@
 @section('page-header')
     <h1>
         {{ app_name() }}
-        <small> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }} </small>
+        <small> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.__TABLENAME__') }} </small>
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> {{ trans('navs.general.home') }}</a></li>
-        <li><a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}"> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.name') }}</a></li>
+        <li><a href="{{ route('$ROUTE_NAMED_PREFIX$$MODEL_NAME_PLURAL_CAMEL$.index') }}"> {{ trans('backend.$MODEL_NAME_PLURAL_CAMEL$.__TABLENAME__') }}</a></li>
         <li class="active"> {{ trans('buttons.general.crud.create') }}</li>
     </ol>
 @endsection
