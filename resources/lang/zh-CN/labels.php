@@ -26,6 +26,7 @@ return [
             'reset'  => '重置',
             'export' => '导出',
             'reload' => '刷新',
+            'colvis' => '显示/隐藏列',
         ],
         'hide' => '隐藏',
         'inactive' => '未激活',
