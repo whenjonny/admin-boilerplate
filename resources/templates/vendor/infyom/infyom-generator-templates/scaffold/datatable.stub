@@ -98,6 +98,6 @@ class $MODEL_NAME$DataTable extends DataTable
      */
     protected function filename()
     {
-        return '$MODEL_NAME_PLURAL_CAMEL$';
+        return '$MODEL_NAME_PLURAL_CAMEL$'.time();
     }
 }
