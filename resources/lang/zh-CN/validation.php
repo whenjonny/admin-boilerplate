@@ -130,12 +130,6 @@ return [
         'product1' => '名称（序号1）',
         'devicename' => '设备名称',
         'supplier_id' => '客户/供应商',
-        'effect_id' => trans('frontend.upload.effect_id'),
-        'beg_time' => trans('frontend.upload.beg_time'),
-        'end_time' => trans('frontend.upload.end_time'),
-        'retry' => trans('frontend.upload.retry'),
-        'remark' => trans('frontend.upload.remark'),
-        'filepath' => trans('frontend.upload.filepath'),
         'backend' => [
             'access' => [
                 'permissions' => [
