@@ -16,12 +16,15 @@ trait ApiTestTrait
     public function assertApiSuccess()
     {
         $this->assertResponseOk();
-        $this->seeJson(['success' => true]);
+        $this->seeJson(['ret' => 1]);
     }
 
     public function assertModelData(Array $actualData, Array $expectedData)
     {
         foreach ($actualData as $key => $value) {
+            if( in_array($key, ['created_at', 'updated_at']) ){
+                continue;
+            }
             $this->assertEquals($actualData[$key], $expectedData[$key]);
         }
     }

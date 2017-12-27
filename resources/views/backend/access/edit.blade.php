@@ -38,6 +38,14 @@
                     </div><!--col-lg-10-->
                 </div><!--form control-->
 
+                <div class="form-group">
+                    {{ Form::label('phone', trans('validation.attributes.backend.access.users.phone'), ['class' => 'col-lg-2 control-label']) }}
+
+                    <div class="col-lg-10">
+                        {{ Form::text('phone', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.backend.access.users.phone')]) }}
+                    </div><!--col-lg-10-->
+                </div><!--form control-->
+
                 @if ($user->id != 1)
                     <div class="form-group">
                         {{ Form::label('status', trans('validation.attributes.backend.access.users.active'), ['class' => 'col-lg-2 control-label']) }}
@@ -61,7 +69,7 @@
                         <div class="col-lg-3">
                             @if (count($roles) > 0)
                                 @foreach($roles as $role)
-                                    <input type="checkbox" value="{{$role->id}}" name="assignees_roles[{{ $role->id }}]" {{ is_array(old('assignees_roles')) ? (in_array($role->id, old('assignees_roles')) ? 'checked' : '') : (in_array($role->id, $user_roles) ? 'checked' : '') }} id="role-{{$role->id}}" /> <label for="role-{{$role->id}}">{{ $role->name }}</label>
+                                    <input type="checkbox" value="{{$role->id}}" name="assignees_roles[{{ $role->id }}]" {{ is_array(old('assignees_roles')) ? (in_array($role->id, old('assignees_roles')) ? 'checked' : '') : (in_array($role->id, $userRoles) ? 'checked' : '') }} id="role-{{$role->id}}" /> <label for="role-{{$role->id}}">{{ $role->name }}</label>
                                         <a href="#" data-role="role_{{$role->id}}" class="show-permissions small">
                                             (
                                                 <span class="show-text">{{ trans('labels.general.show') }}</span>

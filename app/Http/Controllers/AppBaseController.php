@@ -20,13 +20,38 @@ class AppBaseController extends Controller
 {
     public function sendResponse($result, $message)
     {
-        return output($result, $message);
-        #return Response::json(ResponseUtil::makeResponse($message, $result));
+        return Response::json($this->output($result, $message));
     }
 
-    public function sendError($error, $code = 0)
+    public function sendError($error, $code = 400)
     {
-        return error($error, [], $code);
-        #return Response::json(ResponseUtil::makeError($error), $code);
+        return Response::json($this->error($error, [], $code), $code);
+    }
+
+
+    /**
+     * Format json, validate the response
+     */
+    protected function json_format($data, $ret = 1, $info = '') {
+        if(empty($data)) {
+            $data = new \stdClass;
+        }
+        return array(
+            'ret' => $ret,
+            'data' => $data,
+            'info' => $info
+        );
+    }
+
+    protected function output($data = [], $info = '') {
+        return $this->json_format($data, 1, $info);
+    }
+
+    protected function error($info = '', $data = [], $code = 0) {
+        $ret = 1;
+        if($code>=400){
+            $ret = 0;
+        }
+        return $this->json_format($data, $ret, $info);
     }
 }

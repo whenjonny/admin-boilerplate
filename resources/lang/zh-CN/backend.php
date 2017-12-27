@@ -6,7 +6,4 @@ return [
     'sidebar' => [
         'system_management' => '系统管理',
     ],
-    'posts' => [
-        'name' => '文章'
-    ],
 ];

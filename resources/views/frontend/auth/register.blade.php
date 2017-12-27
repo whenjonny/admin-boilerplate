@@ -27,6 +27,13 @@
                     </div><!--form-group-->
 
                     <div class="form-group">
+                        {{ Form::label('phone', trans('validation.attributes.frontend.phone'), ['class' => 'col-md-4 control-label']) }}
+                        <div class="col-md-6">
+                            {{ Form::input('phone', 'phone', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.phone')]) }}
+                        </div><!--col-md-6-->
+                    </div><!--form-group-->
+
+                    <div class="form-group">
                         {{ Form::label('password', trans('validation.attributes.frontend.password'), ['class' => 'col-md-4 control-label']) }}
                         <div class="col-md-6">
                             {{ Form::input('password', 'password', null, ['class' => 'form-control', 'placeholder' => trans('validation.attributes.frontend.password')]) }}
