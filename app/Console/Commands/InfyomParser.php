@@ -138,7 +138,7 @@ class InfyomParser extends Command
 
         $names[] = 'status';
         $names[] = 'updated_at';
-        $names[] = 'cerated_at';
+        $names[] = 'created_at';
 
         $fileName = $modelName.'.json';
 
