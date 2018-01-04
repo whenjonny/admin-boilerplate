@@ -8,6 +8,10 @@ use InfyOm\Generator\Utils\GeneratorFieldsInputUtil;
 use InfyOm\Generator\Utils\TableFieldsGenerator;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
+
 class InfyomParser extends Command
 {
     /**
@@ -67,6 +71,7 @@ class InfyomParser extends Command
 
     protected function refreshScaffold($modelName) {
         $tableName = Str::camel(Str::plural($modelName));
+        //menu
         $menuPath = config(
             'infyom.laravel_generator.path.views',
             base_path('resources/views/')
@@ -82,6 +87,7 @@ class InfyomParser extends Command
         $menuData = str_replace($templateData, '', $menuData);
         file_put_contents($menuPath, $menuData);
 
+        //route
         $routePath = config('infyom.laravel_generator.path.routes');
         $templatePath = config('infyom.laravel_generator.path.templates_dir').'scaffold/routes/routes.stub';
         $templateData = file_get_contents($templatePath);
@@ -126,6 +132,7 @@ class InfyomParser extends Command
     }
 
     protected function fromFile($modelName) {
+        $tableName = Str::camel(Str::plural($modelName));
         $path = config('infyom.laravel_generator.path.schema_files', base_path('resources/model_schemas/'));
         $filePath = $path.$modelName;
 
@@ -185,9 +192,22 @@ class InfyomParser extends Command
         $this->info("\nSchema File saved: $fileName");
 
         $skip = 'migration';
-        if($this->confirm('Do you want to generate migration?')) {
+        try{
+            $migration = \DB::table('migrations')->where('migration', 'LIKE', "%create_{$tableName}_table%")->first();
+        } catch(\Exception $e) {
+            $migration = null;
+        }
+        $tip = !$migration ? 'Do you want to generate migration?' : 'Model Exists, do you want to generate migration & refresh?';
+        if($this->confirm($tip)) {
             $skip = '';
         }
+        if($skip == '' && $migration) {
+            $migratePath = config('infyom.laravel_generator.path.migration').$migration->migration.".php";
+            $this->call('migrate:reset');
+            unlink($migratePath);
+            exec('composer dump-autoloaded');
+        }
+
         if($this->confirm('Do you want to generate code?')) {
             $this->refreshScaffold($modelName);
             $this->call('infyom:scaffold', [
