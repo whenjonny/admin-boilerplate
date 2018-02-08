@@ -8,6 +8,10 @@ use InfyOm\Generator\Utils\GeneratorFieldsInputUtil;
 use InfyOm\Generator\Utils\TableFieldsGenerator;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
+
 class InfyomParser extends Command
 {
     /**
@@ -41,9 +45,12 @@ class InfyomParser extends Command
      */
     public function handle()
     {
+        //return $this->refreshScaffold('Post');
+
         $this->info('Usage: php artisan infyom:parser {ModelName} {TableName?}');
         $modelName = $this->argument('ModelName');
         $tableName = $this->argument('TableName');
+
 
         if($tableName) {
             $fields = $this->fromTable($modelName, $tableName);
@@ -60,6 +67,38 @@ class InfyomParser extends Command
             self::i18n($modelName, $fields);
             $this->info('language generate successfully');
         }
+    }
+
+    protected function refreshScaffold($modelName) {
+        $tableName = Str::camel(Str::plural($modelName));
+        //menu
+        $menuPath = config(
+            'infyom.laravel_generator.path.views',
+            base_path('resources/views/')
+        ).config('infyom.laravel_generator.add_on.menu.menu_file');
+
+        $templatePath = config('infyom.laravel_generator.path.templates_dir').'scaffold/layouts/menu_template.stub';
+        $templateData = file_get_contents($templatePath);
+
+        $templateData = str_replace('$ROUTE_NAMED_PREFIX$', '',$templateData);
+        $templateData = str_replace('$MODEL_NAME_PLURAL_CAMEL$', $tableName,$templateData);
+
+        $menuData = file_get_contents($menuPath);
+        $menuData = str_replace($templateData, '', $menuData);
+        file_put_contents($menuPath, $menuData);
+
+        //route
+        $routePath = config('infyom.laravel_generator.path.routes');
+        $templatePath = config('infyom.laravel_generator.path.templates_dir').'scaffold/routes/routes.stub';
+        $templateData = file_get_contents($templatePath);
+
+        $templateData = str_replace('$PATH_PREFIX$', '',$templateData);
+        $templateData = str_replace('$MODEL_NAME_PLURAL_CAMEL$', $tableName,$templateData);
+        $templateData = str_replace('$MODEL_NAME$', $modelName, $templateData);
+
+        $routeData = file_get_contents($routePath);
+        $routeData = str_replace($templateData, '', $routeData);
+        file_put_contents($routePath, $routeData);
     }
 
     protected function fromTable($modelName, $tableName) {
@@ -80,6 +119,7 @@ class InfyomParser extends Command
         }
 
         if($this->confirm('Do you want to generate code?')) {
+            $this->removeMenu($modelName);
             $this->call('infyom:scaffold', [
                 'model'=>$modelName, 
                 '--fromTable'=>true,
@@ -92,6 +132,7 @@ class InfyomParser extends Command
     }
 
     protected function fromFile($modelName) {
+        $tableName = Str::camel(Str::plural($modelName));
         $path = config('infyom.laravel_generator.path.schema_files', base_path('resources/model_schemas/'));
         $filePath = $path.$modelName;
 
@@ -138,7 +179,7 @@ class InfyomParser extends Command
 
         $names[] = 'status';
         $names[] = 'updated_at';
-        $names[] = 'cerated_at';
+        $names[] = 'created_at';
 
         $fileName = $modelName.'.json';
 
@@ -151,10 +192,24 @@ class InfyomParser extends Command
         $this->info("\nSchema File saved: $fileName");
 
         $skip = 'migration';
-        if($this->confirm('Do you want to generate migration?')) {
+        try{
+            $migration = \DB::table('migrations')->where('migration', 'LIKE', "%create_{$tableName}_table%")->first();
+        } catch(\Exception $e) {
+            $migration = null;
+        }
+        $tip = !$migration ? 'Do you want to generate migration?' : 'Model Exists, do you want to generate migration & refresh?';
+        if($this->confirm($tip)) {
             $skip = '';
         }
+        if($skip == '' && $migration) {
+            $migratePath = config('infyom.laravel_generator.path.migration').$migration->migration.".php";
+            $this->call('migrate:reset');
+            unlink($migratePath);
+            exec('composer dump-autoloaded');
+        }
+
         if($this->confirm('Do you want to generate code?')) {
+            $this->refreshScaffold($modelName);
             $this->call('infyom:scaffold', [
                 'model'=>$modelName, '--fieldsFile'=>$path.$fileName, '--skip'=>$skip
             ]);
@@ -208,8 +263,8 @@ class InfyomParser extends Command
         $result = [
             'name'        => '',
             'dbType'      => '',
-            'htmlType'    => null,
-            'validations' => null,
+            'htmlType'    => '',
+            'validations' => '',
             'searchable'  => true,
             'fillable'    => true,
             'inForm'      => true,
@@ -243,13 +298,13 @@ class InfyomParser extends Command
                     $result['inIndex'] = false;
                 }
             case 4:
-                $result['validations']  = $fields[3];
+                $result['validations']  = $fields[3]!="null"?$fields[2]:'';
             case 3:
-                $result['htmlType'] = $fields[2];
+                $result['htmlType'] = $fields[2]!="null"?$fields[2]:'';
             case 2:
-                $result['dbType']   = $fields[1];
+                $result['dbType']   = $fields[1]!="null"?$fields[1]:'';
             case 1:
-                $result['name']     = $fields[0];
+                $result['name']     = $fields[0]!="null"?$fields[0]:'';
         }
 
         return $result;
