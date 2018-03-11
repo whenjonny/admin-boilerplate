@@ -69,7 +69,7 @@ class Handler extends ExceptionHandler
          * Judge is api or not
          */
         $isApi = false;
-        if($request->is(config('infyom.laravel_generator.api_prefix').'/*')) {
+        if($request->is('api/'.config('infyom.laravel_generator.api_prefix').'/*')) {
             $isApi = true;
         }
        
