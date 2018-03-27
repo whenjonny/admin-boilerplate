@@ -298,7 +298,7 @@ class InfyomParser extends Command
                     $result['inIndex'] = false;
                 }
             case 4:
-                $result['validations']  = $fields[3]!="null"?$fields[2]:'';
+                $result['validations']  = $fields[3]!="null"?$fields[3]:'';
             case 3:
                 $result['htmlType'] = $fields[2]!="null"?$fields[2]:'';
             case 2:
