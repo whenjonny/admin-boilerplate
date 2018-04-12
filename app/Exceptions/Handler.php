@@ -96,6 +96,11 @@ class Handler extends ExceptionHandler
             }
         }
 
+        if ($isApi) {
+            return response()->json(error($exception->getMessage()));
+        } else {
+            return response()->view('errors.500', [ 'message' => $exception->getMessage() ], 500);
+        }
         return parent::render($request, $exception);
     }
 
